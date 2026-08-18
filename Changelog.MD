@@ -47,3 +47,12 @@
 - **Crawler Assets**:
   - Generated [public/robots.txt](file:///d:/Luniq%20Website/public/robots.txt) allowing search indexing.
   - Generated [public/sitemap.xml](file:///d:/Luniq%20Website/public/sitemap.xml) with section priority mapping.
+
+### 6. Source Control & Vercel Readiness
+- Initialized git repository on branch `main`.
+- Created `.gitignore` excluding `node_modules`, `dist`, `.gemini`, and editor artifacts.
+- Created [vercel.json](file:///d:/Luniq%20Website/vercel.json) with:
+  - SPA fallback rewrites (`/(.*) -> /index.html`).
+  - Immutable 1-year CDN caching for static bundles and carousel images (`/assets/*`, `/carousel/*`).
+  - Security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`).
+- Pushed complete codebase and deployment configuration to `https://github.com/BrokenDecoder/Luniq-Showcase.git` on branch `main`.
