@@ -1,0 +1,49 @@
+# Worklog: Luniq Website Optimization & Component Integrations
+
+## Session Summary
+
+### 1. Liquid Jelly & Smooth Velocity Scroll Engine
+- Installed and integrated `lenis` for smooth continuous velocity scrolling.
+- Developed `useJellyScroll` hook with:
+  - Real-time velocity-to-physics mapping (`--jelly-skew`, `--jelly-scale-y`, `--jelly-scale-x`).
+  - Elastic spring recovery when scrolling slows down.
+  - 10% magnetic snap on scroll pause with quartic deceleration glide ($1 - (1 - t)^4$).
+  - Full bidirectional reverse scroll compatibility.
+
+### 2. Left Edge-Hover Navigation Drawer
+- Converted `ScrollWheelNav` into an interactive edge-peek drawer:
+  - Hidden by default to maximize content view.
+  - Automatically slides out when hovering the left edge ($\le 180\text{px}$) or ambient pill indicator.
+  - Automatically retracts when moving away from the edge.
+  - Remains isolated/hidden on the Hero and Reviews landing stages.
+
+### 3. React Bits Component Integrations
+- **`<SplitText />`**:
+  - Integrated in the Features section headline (*"Everything you need. / Nothing you don't."*) with bidirectional character-by-character 3D flipping.
+- **`<BlurText />`**:
+  - Integrated in the Details section headline (*"Small things, / done right."*) with staged Gaussian de-blurring and multi-directional entry.
+- **`<DepthCarousel />`**:
+  - Integrated in the Showcase section displaying a 3D depth stack with 5 real high-resolution screenshots from `/public/carousel/` (`1.png` to `5.png`).
+  - Configured at large cinematic scale ($1140\text{px} \times 640\text{px}$) with drag/swipe, wheel, and keyboard arrow navigation.
+  - Added watcher ignore for `Carosule` in `vite.config.js` to eliminate Windows `EBUSY` file-lock conflicts.
+
+### 4. Layout De-Congestion
+- **Showcase Section**: Partitioned into two dedicated $100\text{vh}$ pages:
+  - Page 1 (`#showcase`): Overview `<FoldText />` typography with modern `Outfit` & `Plus Jakarta Sans` font pairing.
+  - Page 2 (`#showcase-stage`): Grand 3D Carousel Showcase stage with scale-in entrance.
+- **Features Section**: Partitioned into two dedicated $100\text{vh}$ pages:
+  - Page 1 (`#features`): Overview `<SplitText />` headline with no awkward line breaks.
+  - Page 2 (`#features-cards`): Spacious $2 \times 2$ glassmorphic feature card grid.
+
+### 5. SEO Optimization & Search Indexing
+- **Semantic Metadata & Canonical URL**:
+  - Configured title: *"Luniq — Minimalist, Ad-Free Desktop Music Player"*.
+  - Added targeted keywords, descriptive summary, author, and `canonical` tag.
+- **Social Sharing (OpenGraph & Twitter Cards)**:
+  - Added `og:title`, `og:description`, `og:image`, `og:url`, `og:site_name`.
+  - Added `twitter:card` (summary_large_image) and social tags.
+- **Structured Data (Schema.org / JSON-LD)**:
+  - Injected `SoftwareApplication` structured schema with OS platforms (Windows, macOS, Linux), applicationCategory (`MultimediaApplication`), price (`0 USD`), and author info for Google Rich Snippets.
+- **Crawler Assets**:
+  - Generated [public/robots.txt](file:///d:/Luniq%20Website/public/robots.txt) allowing search indexing.
+  - Generated [public/sitemap.xml](file:///d:/Luniq%20Website/public/sitemap.xml) with section priority mapping.
