@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import './MoltenMetal.css';
 
@@ -7,8 +7,6 @@ const hexToRgb = hex => {
   if (!result) return [1, 1, 1];
   return [parseInt(result[1], 16) / 255, parseInt(result[2], 16) / 255, parseInt(result[3], 16) / 255];
 };
-
-const colorModeToFloat = mode => (mode === 'ember' ? 1 : mode === 'frost' ? 2 : 0);
 
 const vertex = `#version 300 es
 in vec2 position;
@@ -77,7 +75,6 @@ void main() {
   c /= 6.0;
 
   float intensity = max(c - uBlackPoint, 0.0) * uBrightness;
-
   float g = clamp(intensity, 0.0, 1.0);
 
   float mid = 0.5;
@@ -100,231 +97,177 @@ void main() {
 }
 `;
 
-const ctxMap = new WeakMap();
-
 const MoltenMetal = ({
-  color1 = '#5227FF',
-  color2 = '#FF9FFC',
-  color3 = '#FFFFFF',
-  speed = 0.35,
-  scale = 4,
-  detail = 3,
-  glow = 1.6,
-  coreSize = 0.1,
-  swirl = 1,
-  fold = -0.2,
-  blackPoint = 0.05,
-  brightness = 1.3,
+  color1 = '#2d0b5e',
+  color2 = '#eb5a37',
+  color3 = '#ffffff',
+  speed = 0.28,
+  scale = 3.6,
+  detail = 4,
+  glow = 2.0,
+  coreSize = 0.12,
+  swirl = 1.1,
+  fold = -0.25,
+  blackPoint = 0.01,
+  brightness = 1.4,
   colorMode = 'molten',
   grain = true,
-  grainIntensity = 0.05,
+  grainIntensity = 0.04,
   mouseInteraction = true,
   mouseStrength = 0.3,
-  opacity = 1.0,
+  opacity = 0.85,
   className = ''
 }) => {
   const containerRef = useRef(null);
+  const [webglSupported, setWebglSupported] = useState(true);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new Renderer({
-      webgl: 2,
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 1.5)
-    });
+    let renderer, gl, program, mesh, ro, raf = 0;
 
-    const gl = renderer.gl;
-    gl.clearColor(0, 0, 0, 0);
-    const canvas = gl.canvas;
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.display = 'block';
-    container.appendChild(canvas);
+    try {
+      renderer = new Renderer({
+        webgl: 2,
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: false,
+        dpr: Math.min(window.devicePixelRatio || 1, 1.5)
+      });
 
-    const geometry = new Triangle(gl);
-    const program = new Program(gl, {
-      vertex,
-      fragment,
-      uniforms: {
-        iTime: { value: 0 },
-        iResolution: { value: new Float32Array([1, 1]) },
-        uSpeed: { value: 0.35 },
-        uScale: { value: 4 },
-        uDetail: { value: 3 },
-        uGlow: { value: 1.6 },
-        uCoreSize: { value: 0.1 },
-        uSwirl: { value: 1 },
-        uFold: { value: -0.2 },
-        uBlackPoint: { value: 0.05 },
-        uBrightness: { value: 1.3 },
-        uColorMode: { value: 0 },
-        uGrain: { value: 1 },
-        uGrainIntensity: { value: 0.05 },
-        uOpacity: { value: 1.0 },
-        uMouse: { value: new Float32Array([0.5, 0.5]) },
-        uMouseStrength: { value: 0.3 },
-        uEnableMouse: { value: true },
-        uColor1: { value: new Float32Array([1, 1, 1]) },
-        uColor2: { value: new Float32Array([1, 1, 1]) },
-        uColor3: { value: new Float32Array([1, 1, 1]) }
+      gl = renderer.gl;
+      if (!gl) {
+        setWebglSupported(false);
+        return;
       }
-    });
 
-    const mesh = new Mesh(gl, { geometry, program });
-    ctxMap.set(container, { renderer, program, mesh });
+      gl.clearColor(0, 0, 0, 0);
+      const canvas = gl.canvas;
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.display = 'block';
+      container.appendChild(canvas);
 
-    const setSize = () => {
-      const rect = container.getBoundingClientRect();
-      const w = Math.max(1, Math.floor(rect.width));
-      const h = Math.max(1, Math.floor(rect.height));
-      renderer.setSize(w, h);
-      const res = program.uniforms.iResolution.value;
-      res[0] = gl.drawingBufferWidth;
-      res[1] = gl.drawingBufferHeight;
-      renderer.render({ scene: mesh });
-    };
+      const geometry = new Triangle(gl);
+      program = new Program(gl, {
+        vertex,
+        fragment,
+        uniforms: {
+          iTime: { value: 0 },
+          iResolution: { value: new Float32Array([1, 1]) },
+          uSpeed: { value: speed },
+          uScale: { value: scale },
+          uDetail: { value: detail },
+          uGlow: { value: glow },
+          uCoreSize: { value: coreSize },
+          uSwirl: { value: swirl },
+          uFold: { value: fold },
+          uBlackPoint: { value: blackPoint },
+          uBrightness: { value: brightness },
+          uColorMode: { value: colorMode === 'ember' ? 1 : colorMode === 'frost' ? 2 : 0 },
+          uGrain: { value: grain ? 1 : 0 },
+          uGrainIntensity: { value: grainIntensity },
+          uOpacity: { value: opacity },
+          uMouse: { value: new Float32Array([0.5, 0.5]) },
+          uMouseStrength: { value: mouseStrength },
+          uEnableMouse: { value: mouseInteraction },
+          uColor1: { value: new Float32Array(hexToRgb(color1)) },
+          uColor2: { value: new Float32Array(hexToRgb(color2)) },
+          uColor3: { value: new Float32Array(hexToRgb(color3)) }
+        }
+      });
 
-    const ro = new ResizeObserver(setSize);
-    ro.observe(container);
-    setSize();
+      mesh = new Mesh(gl, { geometry, program });
 
-    const targetMouse = [0.5, 0.5];
-    const currentMouse = [0.5, 0.5];
+      const setSize = () => {
+        const rect = container.getBoundingClientRect();
+        const w = Math.max(1, Math.floor(rect.width));
+        const h = Math.max(1, Math.floor(rect.height));
+        renderer.setSize(w, h);
+        const res = program.uniforms.iResolution.value;
+        res[0] = gl.drawingBufferWidth;
+        res[1] = gl.drawingBufferHeight;
+        renderer.render({ scene: mesh });
+      };
 
-    const handleMouseMove = e => {
-      const rect = canvas.getBoundingClientRect();
-      targetMouse[0] = (e.clientX - rect.left) / (rect.width || 1);
-      targetMouse[1] = 1.0 - (e.clientY - rect.top) / (rect.height || 1);
-    };
-    const handleMouseLeave = () => {
-      targetMouse[0] = 0.5;
-      targetMouse[1] = 0.5;
-    };
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+      ro = new ResizeObserver(setSize);
+      ro.observe(container);
+      setSize();
 
-    let raf = 0;
-    let isVisible = true;
-    let isPageVisible = !document.hidden;
-    const t0 = performance.now();
+      const targetMouse = [0.5, 0.5];
+      const currentMouse = [0.5, 0.5];
 
-    const loop = t => {
-      program.uniforms.iTime.value = (t - t0) * 0.001;
-      currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
-      currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
-      program.uniforms.uMouse.value[0] = currentMouse[0];
-      program.uniforms.uMouse.value[1] = currentMouse[1];
-      renderer.render({ scene: mesh });
-      raf = requestAnimationFrame(loop);
-    };
+      const handleMouseMove = e => {
+        const rect = canvas.getBoundingClientRect();
+        targetMouse[0] = (e.clientX - rect.left) / (rect.width || 1);
+        targetMouse[1] = 1.0 - (e.clientY - rect.top) / (rect.height || 1);
+      };
 
-    const tryStart = () => {
-      if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop);
-    };
-    const tryStop = () => {
-      if (raf !== 0) {
-        cancelAnimationFrame(raf);
-        raf = 0;
-      }
-    };
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
-        isVisible ? tryStart() : tryStop();
-      },
-      { threshold: 0 }
-    );
-    io.observe(container);
+      let isVisible = true;
+      let isPageVisible = !document.hidden;
+      const t0 = performance.now();
 
-    const onVisibility = () => {
-      isPageVisible = !document.hidden;
-      isPageVisible ? tryStart() : tryStop();
-    };
-    document.addEventListener('visibilitychange', onVisibility);
+      const loop = t => {
+        program.uniforms.iTime.value = (t - t0) * 0.001;
+        currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
+        currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
+        program.uniforms.uMouse.value[0] = currentMouse[0];
+        program.uniforms.uMouse.value[1] = currentMouse[1];
+        renderer.render({ scene: mesh });
+        raf = requestAnimationFrame(loop);
+      };
 
-    tryStart();
+      const tryStart = () => {
+        if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop);
+      };
+      const tryStop = () => {
+        if (raf !== 0) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        }
+      };
 
-    return () => {
-      tryStop();
-      ro.disconnect();
-      io.disconnect();
-      document.removeEventListener('visibilitychange', onVisibility);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-      ctxMap.delete(container);
-      try {
-        if (canvas.parentNode === container) {
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          isVisible ? tryStart() : tryStop();
+        },
+        { threshold: 0 }
+      );
+      io.observe(container);
+
+      const onVisibility = () => {
+        isPageVisible = !document.hidden;
+        isPageVisible ? tryStart() : tryStop();
+      };
+      document.addEventListener('visibilitychange', onVisibility);
+
+      tryStart();
+
+      return () => {
+        tryStop();
+        if (ro) ro.disconnect();
+        io.disconnect();
+        document.removeEventListener('visibilitychange', onVisibility);
+        window.removeEventListener('mousemove', handleMouseMove);
+        if (canvas && canvas.parentNode === container) {
           container.removeChild(canvas);
         }
-      } catch {}
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
-    };
-  }, []);
+      };
+    } catch (err) {
+      console.warn('WebGL initialization failed in MoltenMetal, using CSS fallback:', err);
+      setWebglSupported(false);
+    }
+  }, [color1, color2, color3, speed, scale, detail, glow, coreSize, swirl, fold, blackPoint, brightness, colorMode, grain, grainIntensity, mouseInteraction, mouseStrength, opacity]);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    const ctx = ctxMap.get(container);
-    if (!ctx) return;
-    const u = ctx.program.uniforms;
-
-    u.uSpeed.value = speed;
-    u.uScale.value = scale;
-    u.uDetail.value = detail;
-    u.uGlow.value = glow;
-    u.uCoreSize.value = Math.max(coreSize, 0.001);
-    u.uSwirl.value = swirl;
-    u.uFold.value = fold;
-    u.uBlackPoint.value = blackPoint;
-    u.uBrightness.value = brightness;
-    u.uColorMode.value = colorModeToFloat(colorMode);
-    u.uGrain.value = grain ? 1 : 0;
-    u.uGrainIntensity.value = grainIntensity;
-    u.uOpacity.value = opacity;
-    u.uMouseStrength.value = mouseStrength;
-    u.uEnableMouse.value = mouseInteraction;
-    const c1 = hexToRgb(color1);
-    const c2 = hexToRgb(color2);
-    const c3 = hexToRgb(color3);
-    const uc1 = u.uColor1.value;
-    const uc2 = u.uColor2.value;
-    const uc3 = u.uColor3.value;
-    uc1[0] = c1[0];
-    uc1[1] = c1[1];
-    uc1[2] = c1[2];
-    uc2[0] = c2[0];
-    uc2[1] = c2[1];
-    uc2[2] = c2[2];
-    uc3[0] = c3[0];
-    uc3[1] = c3[1];
-    uc3[2] = c3[2];
-  }, [
-    color1,
-    color2,
-    color3,
-    speed,
-    scale,
-    detail,
-    glow,
-    coreSize,
-    swirl,
-    fold,
-    blackPoint,
-    brightness,
-    colorMode,
-    grain,
-    grainIntensity,
-    mouseInteraction,
-    mouseStrength,
-    opacity
-  ]);
-
-  return <div ref={containerRef} className={`molten-metal-container ${className}`.trim()} />;
+  return (
+    <div ref={containerRef} className={`molten-metal-container ${className}`}>
+      {!webglSupported && <div className="molten-metal-fallback-glow" />}
+    </div>
+  );
 };
 
 export default MoltenMetal;

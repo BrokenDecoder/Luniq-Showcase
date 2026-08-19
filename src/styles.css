@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=Syne:wght@700;800&family=Unbounded:wght@700;800;900&display=swap');
 
 :root {
+  color-scheme: dark;
   --bg: #07090e;
   --bg-subtle: #0d111a;
   --ink: #f0f4f8;
@@ -42,18 +43,32 @@
 }
 
 * { box-sizing: border-box; }
-html { background: var(--bg); }
+html {
+  background-color: #07090e;
+  background: #07090e;
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: #07090e;
+  background: #07090e;
   color: var(--ink);
   font-family: Roboto, Arial, sans-serif;
   overflow-x: hidden;
+  color-scheme: dark;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #07090e;
+  position: relative;
 }
 
 a { color: inherit; text-decoration: none; }
 button { font: inherit; border: none; background: none; }
-.app-shell { overflow: clip; position: relative; width: 100%; min-height: 100vh; }
+.app-shell { overflow: clip; position: relative; width: 100%; min-height: 100vh; background: #07090e; }
 .scroll-progress {
   position: fixed;
   inset: 0 0 auto;
@@ -70,7 +85,7 @@ button { font: inherit; border: none; background: none; }
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: #06080d;
+  background: radial-gradient(circle at 50% 25%, #18082e 0%, #0d0617 45%, #06080d 100%);
 }
 
 .molten-bg-wrapper {

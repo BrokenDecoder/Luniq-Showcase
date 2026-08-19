@@ -66,10 +66,10 @@
   - **2nd Member**: **xAshu / BrokenDecoder**, Lead Architect (Audio engine, WebGL shaders, Spicetify theme foundation).
   - **3rd Member**: Design & Motion systems slot.
 - Policy established: Git commits & pushes are strictly executed ONLY when the user explicitly requests them.
-- Updated all references across team profiles to explicitly specify **Luniq Music**:
-  - Core Developer works: "Full-stack desktop features & Luniq Music core modules".
-  - Lead Architect works: "Luniq Music theme architecture & MoltenMetal fluid reactive background".
-  - Updated all Discord links directly to official Luniq Music server `https://discord.gg/TardrVJT9N`.
+- Fixed mobile phone background and WebGL context limits:
+  - Added explicit `color-scheme: dark` and `#07090e` background on `:root`, `html`, `body`, `#root`, and `.app-shell`.
+  - Added a deep ambient radial CSS fallback gradient (`#18082e` $\to$ `#06080d`) in `.ambient-background` and `.molten-metal-fallback-glow` so mobile devices never see a white screen even before WebGL loads or in battery saver mode.
+  - Wrapped WebGL initialization in `try...catch` across [src/MoltenMetal.jsx](file:///d:/Luniq%20Website/src/MoltenMetal.jsx) and [src/components/SpecularButton.jsx](file:///d:/Luniq%20Website/src/components/SpecularButton.jsx) to safely handle mobile GPU context limits without crashing React.
 - Verified production build (`npm run build`) completed with 0 errors.
 
 
