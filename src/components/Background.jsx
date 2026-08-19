@@ -7,7 +7,7 @@ export default function Background() {
       {/* Dynamic MoltenMetal WebGL Canvas Matching Theme */}
       <div className="molten-bg-wrapper">
         <MoltenMetal
-          color1="#2d0b5e"
+          color1="#0d111a"
           color2="#eb5a37"
           color3="#ffffff"
           speed={0.28}

@@ -85,7 +85,7 @@ button { font: inherit; border: none; background: none; }
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 25%, #18082e 0%, #0d0617 45%, #06080d 100%);
+  background: radial-gradient(circle at 50% 25%, rgba(235, 90, 55, 0.12) 0%, rgba(13, 17, 26, 0.8) 45%, #06080d 100%);
 }
 
 .molten-bg-wrapper {

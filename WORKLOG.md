@@ -66,10 +66,9 @@
   - **2nd Member**: **xAshu / BrokenDecoder**, Lead Architect (Audio engine, WebGL shaders, Spicetify theme foundation).
   - **3rd Member**: Design & Motion systems slot.
 - Policy established: Git commits & pushes are strictly executed ONLY when the user explicitly requests them.
-- Fixed mobile phone background and WebGL context limits:
-  - Added explicit `color-scheme: dark` and `#07090e` background on `:root`, `html`, `body`, `#root`, and `.app-shell`.
-  - Added a deep ambient radial CSS fallback gradient (`#18082e` $\to$ `#06080d`) in `.ambient-background` and `.molten-metal-fallback-glow` so mobile devices never see a white screen even before WebGL loads or in battery saver mode.
-  - Wrapped WebGL initialization in `try...catch` across [src/MoltenMetal.jsx](file:///d:/Luniq%20Website/src/MoltenMetal.jsx) and [src/components/SpecularButton.jsx](file:///d:/Luniq%20Website/src/components/SpecularButton.jsx) to safely handle mobile GPU context limits without crashing React.
+- Removed purple / violet tint across all background shaders and CSS fallbacks:
+  - Replaced `#2d0b5e` in [src/components/Background.jsx](file:///d:/Luniq%20Website/src/components/Background.jsx) with obsidian charcoal `#0d111a` and signature amber `#eb5a37`.
+  - Replaced `#18082e` in [src/styles.css](file:///d:/Luniq%20Website/src/styles.css) and [src/MoltenMetal.css](file:///d:/Luniq%20Website/src/MoltenMetal.css) with subtle amber glow on obsidian background.
 - Verified production build (`npm run build`) completed with 0 errors.
 
 
