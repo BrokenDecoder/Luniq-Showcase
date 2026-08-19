@@ -1,15 +1,17 @@
 .team-section {
   min-height: 100vh;
   min-height: 100dvh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 24px;
+  padding: 120px 24px;
   position: relative;
   background: transparent;
   isolation: isolate;
   text-align: center;
+  z-index: 5;
 }
 
 .team-text-stage {
@@ -24,19 +26,19 @@
 
 .team-hero-title {
   font-family: 'Syne', sans-serif !important;
-  font-size: clamp(3.2rem, 9vw, 8rem) !important;
+  font-size: clamp(3.2rem, 9.5vw, 8.5rem) !important;
   font-weight: 800 !important;
   text-transform: uppercase;
   letter-spacing: -0.04em !important;
-  line-height: 1 !important;
-  color: #ffffff;
-  background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.45) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  line-height: 1.05 !important;
+  color: #ffffff !important;
 }
 
 @media (max-width: 640px) {
   .team-hero-title {
-    font-size: clamp(2.4rem, 12vw, 4rem) !important;
+    font-size: clamp(2.4rem, 12vw, 4.2rem) !important;
+  }
+  .team-section {
+    padding: 80px 16px;
   }
 }

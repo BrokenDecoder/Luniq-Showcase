@@ -12,9 +12,9 @@ const ScrollFloat = ({
   containerClassName = '',
   textClassName = '',
   animationDuration = 1,
-  ease = 'back.inOut(2)',
-  scrollStart = 'top bottom-=20%',
-  scrollEnd = 'bottom center',
+  ease = 'back.out(2)',
+  scrollStart = 'top 90%',
+  scrollEnd = 'center 45%',
   stagger = 0.03
 }) => {
   const containerRef = useRef(null);
@@ -32,8 +32,11 @@ const ScrollFloat = ({
     const el = containerRef.current;
     if (!el) return;
 
-    const scroller = scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window;
     const charElements = el.querySelectorAll('.char');
+    if (!charElements.length) return;
+
+    // Refresh triggers to ensure correct layout positions
+    ScrollTrigger.refresh();
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -41,8 +44,8 @@ const ScrollFloat = ({
         {
           willChange: 'opacity, transform',
           opacity: 0,
-          yPercent: 120,
-          scaleY: 2.3,
+          y: 80,
+          scaleY: 2.0,
           scaleX: 0.7,
           transformOrigin: '50% 0%'
         },
@@ -50,28 +53,27 @@ const ScrollFloat = ({
           duration: animationDuration,
           ease: ease,
           opacity: 1,
-          yPercent: 0,
+          y: 0,
           scaleY: 1,
           scaleX: 1,
           stagger: stagger,
           scrollTrigger: {
             trigger: el,
-            scroller,
             start: scrollStart,
             end: scrollEnd,
-            scrub: true
+            scrub: 1
           }
         }
       );
     }, el);
 
     return () => ctx.revert();
-  }, [scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
+  }, [animationDuration, ease, scrollStart, scrollEnd, stagger]);
 
   return (
-    <h2 ref={containerRef} className={`scroll-float ${containerClassName}`}>
+    <div ref={containerRef} className={`scroll-float ${containerClassName}`}>
       <span className={`scroll-float-text ${textClassName}`}>{splitText}</span>
-    </h2>
+    </div>
   );
 };
 
