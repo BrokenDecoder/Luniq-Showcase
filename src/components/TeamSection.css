@@ -1,4 +1,12 @@
-.team-section {
+.team-wrapper {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  isolation: isolate;
+}
+
+/* Page 1: Full-Screen Centered Headline */
+.team-headline-page {
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -6,15 +14,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 120px 24px;
+  padding: 100px 24px;
   position: relative;
-  background: transparent;
-  isolation: isolate;
   text-align: center;
-  z-index: 5;
 }
 
-.team-text-stage {
+.team-headline-stage {
   width: 100%;
   max-width: var(--content-width);
   margin: auto;
@@ -25,20 +30,352 @@
 }
 
 .team-hero-title {
-  font-family: 'Syne', sans-serif !important;
-  font-size: clamp(3.2rem, 9.5vw, 8.5rem) !important;
+  font-family: 'Syne', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: clamp(2rem, 5.6vw, 6.2rem) !important;
   font-weight: 800 !important;
   text-transform: uppercase;
-  letter-spacing: -0.04em !important;
-  line-height: 1.05 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  flex-wrap: nowrap !important;
   color: #ffffff !important;
+}
+
+/* Member Full-Page Layouts */
+.team-member-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 48px;
+  position: relative;
+}
+
+.team-member-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  align-items: center;
+  gap: 100px;
+}
+
+/* Layout Variations */
+.team-member-container.layout-text-left .team-member-text-col {
+  justify-self: start;
+}
+
+.team-member-container.layout-text-left .team-member-card-col {
+  justify-self: end;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.team-member-container.layout-card-left {
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 100px;
+}
+
+.team-member-container.layout-card-left .team-member-card-col {
+  order: 1;
+  justify-self: start;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.team-member-container.layout-card-left .team-member-text-col {
+  order: 2;
+  justify-self: end;
+}
+
+/* Text Column */
+.team-member-text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 720px;
+  width: 100%;
+}
+
+/* Name Hierarchy Group */
+.member-name-heading-group {
+  margin: 4px 0 28px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.member-alias-sub {
+  display: block;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  opacity: 0.6;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.member-main-name {
+  margin: 0;
+  font-family: 'Space Grotesk', 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2.4rem, 4.4vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.75) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+/* Works & Architecture Block */
+.member-works-block {
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.member-works-label {
+  display: block;
+  font: 700 11.5px SFMono-Regular, Consolas, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.member-works-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.member-works-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  color: #d1d5db;
+  font-family: 'Space Grotesk', 'Syne', sans-serif;
+  font-size: clamp(14.5px, 1.15vw, 16.5px);
+  line-height: 1.65;
+}
+
+.works-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 9px;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(235, 90, 55, 0.6);
+}
+
+/* Other Socials */
+.member-other-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.member-socials-label {
+  font: 700 11px SFMono-Regular, Consolas, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-dark);
+}
+
+.member-socials-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.member-social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: #e2e8f0;
+  font: 600 12.5px 'Space Grotesk', sans-serif;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.member-social-pill:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(235, 90, 55, 0.4);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Card Column */
+.team-member-card-col {
+  width: 100%;
+}
+
+.member-spotlight-card {
+  width: 100%;
+  max-width: 440px;
+  min-height: 380px;
+  border-radius: 20px;
+  background: rgba(14, 18, 28, 0.7);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.member-spotlight-card .glare-card__content {
+  display: flex;
+  flex-direction: column;
+  padding: 36px 30px;
+  height: 100%;
+}
+
+.spotlight-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.spotlight-avatar-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: rgba(235, 90, 55, 0.14);
+  border: 1px solid rgba(235, 90, 55, 0.3);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px rgba(235, 90, 55, 0.2);
+}
+
+.spotlight-role-pill {
+  font: 700 11px SFMono-Regular, Consolas, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink-pure);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.spotlight-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.spotlight-member-name {
+  margin: 0;
+  font: 800 24px/1.2 'Syne', sans-serif;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.spotlight-member-role {
+  display: block;
+  margin-top: 6px;
+  margin-bottom: 14px;
+  font: 600 12px SFMono-Regular, Consolas, monospace;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.spotlight-member-bio {
+  margin: 0;
+  color: var(--muted);
+  font: 14px/1.65 'Space Grotesk', sans-serif;
+  flex: 1;
+}
+
+.spotlight-card-footer {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 1100px) {
+  .team-member-container,
+  .team-member-container.layout-card-left {
+    gap: 60px;
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 960px) {
+  .team-member-container,
+  .team-member-container.layout-card-left {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .team-member-container.layout-card-left .team-member-card-col,
+  .team-member-container.layout-text-left .team-member-card-col {
+    justify-content: center;
+    justify-self: center;
+  }
+
+  .team-member-container.layout-card-left .team-member-card-col {
+    order: 2;
+  }
+
+  .team-member-container.layout-card-left .team-member-text-col {
+    order: 1;
+  }
+
+  .team-member-text-col {
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .member-name-heading-group {
+    align-items: center;
+  }
+
+  .member-works-item {
+    justify-content: center;
+  }
+
+  .member-socials-links {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 640px) {
   .team-hero-title {
-    font-size: clamp(2.4rem, 12vw, 4.2rem) !important;
+    font-size: clamp(1.8rem, 8.2vw, 3rem) !important;
   }
-  .team-section {
-    padding: 80px 16px;
+  .member-main-name {
+    font-size: clamp(1.9rem, 7.8vw, 2.6rem);
+  }
+  .team-member-page {
+    padding: 60px 16px;
+  }
+  .member-spotlight-card .glare-card__content {
+    padding: 26px 20px;
   }
 }

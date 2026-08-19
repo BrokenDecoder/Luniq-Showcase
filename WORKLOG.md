@@ -75,9 +75,10 @@
   - Replaced opaque black canvas clearing with `ctx.clearRect()`.
   - Added CSS `mix-blend-mode: screen` on the `<canvas>` element so the black JPEG background becomes 100% transparent while preserving all metallic highlights, reflections, and glow.
   - Set container and sticky stage backgrounds to `transparent` to reveal the global `MoltenMetal` WebGL shader background seamlessly.
-- Refined "Meet The Team" section into a pure, full-screen landing headline ([src/components/TeamSection.jsx](file:///d:/Luniq%20Website/src/components/TeamSection.jsx), [src/components/TeamSection.css](file:///d:/Luniq%20Website/src/components/TeamSection.css)):
-  - Centered the animated `<ScrollFloat>` typography (`clamp(3.2rem, 9vw, 8rem)`) with metallic gradient fill.
-  - Removed secondary cards and paragraphs to match the full-screen cinematic landing aesthetic.
+- Policy established: Git commits & pushes are strictly executed ONLY when the user explicitly requests them.
+- Refined Member 1 name hierarchy & typography proportions ([src/components/TeamSection.jsx](file:///d:/Luniq%20Website/src/components/TeamSection.jsx), [src/components/TeamSection.css](file:///d:/Luniq%20Website/src/components/TeamSection.css)):
+  - Split name into subdued alias `xAshu /` (`opacity: 0.6`, smaller size) above the prominent, full-width `BrokenDecoder` hero headline on a single line.
+  - Increased line heights and natural vertical letter proportions using `Space Grotesk` stack for bullet copy, eliminating squashed width appearances.
 - Verified production build (`npm run build`) completed with 0 errors.
 
 

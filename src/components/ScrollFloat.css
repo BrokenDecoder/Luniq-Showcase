@@ -9,16 +9,17 @@
 }
 
 .scroll-float-text {
-  display: flex;
-  flex-wrap: wrap;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   justify-content: center;
   align-items: center;
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(3rem, 8.5vw, 7.5rem);
+  font-family: 'Syne', 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 5.6vw, 6.2rem);
   font-weight: 800;
   text-align: center;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  line-height: 1;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
   color: #ffffff;
 }
@@ -27,5 +28,6 @@
   display: inline-block;
   transform-origin: 50% 0%;
   color: #ffffff;
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 32px rgba(255, 255, 255, 0.25);
+  white-space: pre;
 }

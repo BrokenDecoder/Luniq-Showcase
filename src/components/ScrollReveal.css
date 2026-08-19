@@ -1,0 +1,28 @@
+.scroll-reveal {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.scroll-reveal-text {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4.4vw, 3.6rem);
+  line-height: 1.4;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.scroll-reveal-text .word {
+  display: inline-block;
+  color: #ffffff;
+  margin-right: 0.25em;
+  transform-origin: center center;
+}
