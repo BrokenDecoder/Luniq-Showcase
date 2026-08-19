@@ -9,13 +9,35 @@ import './TeamSection.css';
 const MEMBERS = [
   {
     id: '01',
-    roleTag: '01 / CREATOR & LEAD ARCHITECT',
+    roleTag: '01 / CORE DEVELOPER',
+    alias: 'saraansx /',
+    mainName: 'Saraans .',
+    role: 'Core Developer',
+    works: [
+      'Full-stack desktop features & Luniq Music core modules',
+      'Core performance tuning & cross-platform driver compatibility',
+      'Community-driven extension workflows and ecosystem toolchains'
+    ],
+    socialsOther: [
+      { label: 'iCloud Mail', href: 'mailto:saraans.bali@icloud.com', icon: Mail },
+      { label: 'India', href: '#', icon: Globe }
+    ],
+    name: 'Saraans .',
+    bio: '18 . yo coder fixing one bug, creating two. Core contributor to Luniq Music.',
+    avatar: 'https://github.com/saraansx.png',
+    icon: Terminal,
+    layout: 'text-left', // Text on Left, Card on Right
+    socials: { github: 'https://github.com/saraansx', discord: 'https://discord.gg/TardrVJT9N' }
+  },
+  {
+    id: '02',
+    roleTag: '02 / LEAD ARCHITECT',
     alias: 'xAshu /',
     mainName: 'BrokenDecoder',
     role: 'Lead Architect',
     works: [
       'Core low-latency audio streaming engine & WebGL shader ecosystem',
-      'Spicetify theme foundation & MoltenMetal fluid reactive background',
+      'Luniq Music theme architecture & MoltenMetal fluid reactive background',
       '120 FPS critically-damped spring physics for tactile desktop interactions'
     ],
     socialsOther: [
@@ -24,31 +46,11 @@ const MEMBERS = [
       { label: 'Contact', href: 'mailto:contact@luniq.app', icon: Mail }
     ],
     name: 'BrokenDecoder',
-    bio: 'Pioneering ultra-low latency audio engines, fluid reactive shaders, and Spicetify architecture.',
-    icon: Terminal,
-    layout: 'text-left',
-    socials: { github: 'https://github.com/BrokenDecoder', discord: 'https://discord.gg/spicetify' }
-  },
-  {
-    id: '02',
-    roleTag: '02 / AUDIO DSP',
-    alias: 'Core Contributor /',
-    mainName: 'Team Member 02',
-    role: 'DSP & Audio Systems',
-    works: [
-      'Lossless spectral visuals & real-time audio FFT buffer pipelines',
-      'Zero-drop audio processing & cross-platform driver compatibility',
-      'Spatial equalizer filters and low-overhead waveform analyzers'
-    ],
-    socialsOther: [
-      { label: 'Portfolio', href: '#', icon: Globe },
-      { label: 'Contact', href: '#', icon: Mail }
-    ],
-    name: 'Team Member 02',
-    bio: 'Crafting lossless streaming, real-time spectral visualizers, and zero-drop audio processing.',
+    bio: 'Pioneering ultra-low latency audio engines, fluid reactive shaders, and Luniq Music architecture.',
+    avatar: 'https://github.com/BrokenDecoder.png',
     icon: Cpu,
-    layout: 'card-left',
-    socials: { github: '#', discord: '#' }
+    layout: 'card-left', // Card on Left, Text on Right
+    socials: { github: 'https://github.com/BrokenDecoder', discord: 'https://discord.gg/TardrVJT9N' }
   },
   {
     id: '03',
@@ -68,7 +70,7 @@ const MEMBERS = [
     name: 'Team Member 03',
     bio: 'Crafting tactile interactions, responsive physics, and state-of-the-art visual design systems.',
     icon: Palette,
-    layout: 'text-left',
+    layout: 'text-left', // Text on Left, Card on Right
     socials: { github: '#', discord: '#' }
   }
 ];
@@ -211,7 +213,18 @@ function MemberFullPage({ member, index }) {
           <GlareCard className="member-spotlight-card glass-panel" radius={20}>
             <div className="spotlight-card-header">
               <div className="spotlight-avatar-placeholder">
-                <Icon size={28} strokeWidth={1.8} />
+                {member.avatar ? (
+                  <img
+                    src={member.avatar}
+                    alt={member.name}
+                    className="spotlight-avatar-img"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <Icon size={28} strokeWidth={1.8} />
+                )}
               </div>
               <span className="spotlight-role-pill">{member.role}</span>
             </div>

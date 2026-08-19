@@ -59,26 +59,18 @@
 
 ---
 
-## Session: 2026-08-19 (Frame Scrolling Video / Canvas Scrubbing Architecture)
-- Confirmed `gsap` (3.15.0) and `lenis` (1.3.26) installed and verified ESM imports.
-- Inspected the 240 Full HD frames (`ezgif-frame-001.jpg` to `ezgif-frame-240.jpg`, 1920x1080) located in `src/Lastframes`.
-- Copied 240 frames into `public/frames/` for static HTTP streaming and zero-overhead browser delivery.
-- Built [src/components/ScrollVideoSection.jsx](file:///d:/Luniq%20Website/src/components/ScrollVideoSection.jsx):
-  - High-DPI HTML5 `<canvas>` frame sequence scrubbing engine.
-  - Progressive preloader: loads the first 20 critical frames immediately for instant rendering, then streams batches of 24 frames in the background.
-  - Aspect-ratio centering (`contain`) on pure black background with ambient atmospheric glow.
-  - Smooth spring interpolation via Framer Motion & GSAP ScrollTrigger.
-  - Apple-style narrative typographic overlays and HUD indicator showing real-time frame progression.
-  - Final emblem lock stage with direct download CTA buttons.
-- Created [src/components/ScrollVideoSection.css](file:///d:/Luniq%20Website/src/components/ScrollVideoSection.css) with glassmorphism and responsive styling.
-- Configured transparent canvas rendering:
-  - Replaced opaque black canvas clearing with `ctx.clearRect()`.
-  - Added CSS `mix-blend-mode: screen` on the `<canvas>` element so the black JPEG background becomes 100% transparent while preserving all metallic highlights, reflections, and glow.
-  - Set container and sticky stage backgrounds to `transparent` to reveal the global `MoltenMetal` WebGL shader background seamlessly.
+## Session: 2026-08-19 (Team Section & Member Spotlights)
 - Policy established: Git commits & pushes are strictly executed ONLY when the user explicitly requests them.
-- Refined Member 1 name hierarchy & typography proportions ([src/components/TeamSection.jsx](file:///d:/Luniq%20Website/src/components/TeamSection.jsx), [src/components/TeamSection.css](file:///d:/Luniq%20Website/src/components/TeamSection.css)):
-  - Split name into subdued alias `xAshu /` (`opacity: 0.6`, smaller size) above the prominent, full-width `BrokenDecoder` hero headline on a single line.
-  - Increased line heights and natural vertical letter proportions using `Space Grotesk` stack for bullet copy, eliminating squashed width appearances.
+- Updated Team Member order & profiles ([src/components/TeamSection.jsx](file:///d:/Luniq%20Website/src/components/TeamSection.jsx), [src/components/TeamSection.css](file:///d:/Luniq%20Website/src/components/TeamSection.css)):
+  - **1st Member**: **Saraans .** (`saraansx`), Core Developer (India, `saraans.bali@icloud.com`, avatar from GitHub).
+  - **2nd Member**: **xAshu / BrokenDecoder**, Lead Architect (Audio engine, WebGL shaders, Spicetify theme foundation).
+  - **3rd Member**: Design & Motion systems slot.
+- Policy established: Git commits & pushes are strictly executed ONLY when the user explicitly requests them.
+- Updated all references across team profiles to explicitly specify **Luniq Music**:
+  - Core Developer works: "Full-stack desktop features & Luniq Music core modules".
+  - Lead Architect works: "Luniq Music theme architecture & MoltenMetal fluid reactive background".
+  - Updated all Discord links directly to official Luniq Music server `https://discord.gg/TardrVJT9N`.
 - Verified production build (`npm run build`) completed with 0 errors.
+
 
 

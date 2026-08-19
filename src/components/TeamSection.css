@@ -258,15 +258,23 @@
 }
 
 .spotlight-avatar-placeholder {
-  width: 60px;
-  height: 60px;
-  border-radius: 14px;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
   background: rgba(235, 90, 55, 0.14);
   border: 1px solid rgba(235, 90, 55, 0.3);
   color: var(--accent);
   display: grid;
   place-items: center;
   box-shadow: 0 8px 24px rgba(235, 90, 55, 0.2);
+  overflow: hidden;
+}
+
+.spotlight-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .spotlight-role-pill {
