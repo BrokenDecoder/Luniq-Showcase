@@ -8,7 +8,8 @@ const NAV_ITEMS = [
   'Details',
   'Download',
   'Community',
-  'Experience'
+  'Experience',
+  'Team'
 ];
 
 const TARGET_IDS = [
@@ -17,7 +18,8 @@ const TARGET_IDS = [
   'details',
   'download',
   'community',
-  'experience'
+  'experience',
+  'team'
 ];
 
 export default function ScrollWheelNav() {

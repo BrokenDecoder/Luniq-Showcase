@@ -11,6 +11,7 @@ import DetailsSection from './components/DetailsSection';
 import DownloadSection from './components/DownloadSection';
 import CommunitySection from './components/CommunitySection';
 import ScrollVideoSection from './components/ScrollVideoSection';
+import TeamSection from './components/TeamSection';
 
 import useJellyScroll from './hooks/useJellyScroll';
 
@@ -36,6 +37,7 @@ function App() {
         <DownloadSection />
         <CommunitySection />
         <ScrollVideoSection />
+        <TeamSection />
       </main>
     </div>
   );

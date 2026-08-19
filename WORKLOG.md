@@ -75,10 +75,9 @@
   - Replaced opaque black canvas clearing with `ctx.clearRect()`.
   - Added CSS `mix-blend-mode: screen` on the `<canvas>` element so the black JPEG background becomes 100% transparent while preserving all metallic highlights, reflections, and glow.
   - Set container and sticky stage backgrounds to `transparent` to reveal the global `MoltenMetal` WebGL shader background seamlessly.
-- Implemented seamless scroll choreography between Community and Experience sections:
-  - Choreographed the Community card scroll exit in [src/components/CommunitySection.jsx](file:///d:/Luniq%20Website/src/components/CommunitySection.jsx) with continuous upward float (`y: -90px`), soft blur, and fade out.
-  - Implemented seamless stage entrance interpolation (`opacity`, `y`, `filter`) in [src/components/ScrollVideoSection.jsx](file:///d:/Luniq%20Website/src/components/ScrollVideoSection.jsx) as the user scrolls into the Experience sequence.
-  - Preserved 100% strict consistency for frame dimensions, coordinate mapping, and render scaling (`drawScaledImage`).
+- Refined "Meet The Team" section into a pure, full-screen landing headline ([src/components/TeamSection.jsx](file:///d:/Luniq%20Website/src/components/TeamSection.jsx), [src/components/TeamSection.css](file:///d:/Luniq%20Website/src/components/TeamSection.css)):
+  - Centered the animated `<ScrollFloat>` typography (`clamp(3.2rem, 9vw, 8rem)`) with metallic gradient fill.
+  - Removed secondary cards and paragraphs to match the full-screen cinematic landing aesthetic.
 - Verified production build (`npm run build`) completed with 0 errors.
 
 
