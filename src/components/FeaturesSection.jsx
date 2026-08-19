@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import SplitText from '../SplitText';
+import GlareCard from './GlareCard';
 import { features } from '../data/content';
 
 export default function FeaturesSection() {
@@ -122,7 +123,6 @@ function FeatureCard({ icon: Icon, label, title, copy, index, parentProgress }) 
 
   return (
     <motion.div
-      className="feature-card premium-card spacious-card"
       style={{
         x: cardX,
         y: cardY,
@@ -133,12 +133,14 @@ function FeatureCard({ icon: Icon, label, title, copy, index, parentProgress }) 
       whileHover={{ y: -6, scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 260, damping: 20 }}
     >
-      <div className="feature-top">
-        <span className="feature-icon"><Icon size={22} strokeWidth={1.8} /></span>
-        <span className="feature-label">{label}</span>
-      </div>
-      <h3>{title}</h3>
-      <p>{copy}</p>
+      <GlareCard className="feature-card premium-card spacious-card" radius={16}>
+        <div className="feature-top">
+          <span className="feature-icon"><Icon size={22} strokeWidth={1.8} /></span>
+          <span className="feature-label">{label}</span>
+        </div>
+        <h3>{title}</h3>
+        <p>{copy}</p>
+      </GlareCard>
     </motion.div>
   );
 }

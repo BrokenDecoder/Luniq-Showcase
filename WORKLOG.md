@@ -56,3 +56,29 @@
   - Immutable 1-year CDN caching for static bundles and carousel images (`/assets/*`, `/carousel/*`).
   - Security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`).
 - Pushed complete codebase and deployment configuration to `https://github.com/BrokenDecoder/Luniq-Showcase.git` on branch `main`.
+
+---
+
+## Session: 2026-08-19 (Frame Scrolling Video / Canvas Scrubbing Architecture)
+- Confirmed `gsap` (3.15.0) and `lenis` (1.3.26) installed and verified ESM imports.
+- Inspected the 240 Full HD frames (`ezgif-frame-001.jpg` to `ezgif-frame-240.jpg`, 1920x1080) located in `src/Lastframes`.
+- Copied 240 frames into `public/frames/` for static HTTP streaming and zero-overhead browser delivery.
+- Built [src/components/ScrollVideoSection.jsx](file:///d:/Luniq%20Website/src/components/ScrollVideoSection.jsx):
+  - High-DPI HTML5 `<canvas>` frame sequence scrubbing engine.
+  - Progressive preloader: loads the first 20 critical frames immediately for instant rendering, then streams batches of 24 frames in the background.
+  - Aspect-ratio centering (`contain`) on pure black background with ambient atmospheric glow.
+  - Smooth spring interpolation via Framer Motion & GSAP ScrollTrigger.
+  - Apple-style narrative typographic overlays and HUD indicator showing real-time frame progression.
+  - Final emblem lock stage with direct download CTA buttons.
+- Created [src/components/ScrollVideoSection.css](file:///d:/Luniq%20Website/src/components/ScrollVideoSection.css) with glassmorphism and responsive styling.
+- Configured transparent canvas rendering:
+  - Replaced opaque black canvas clearing with `ctx.clearRect()`.
+  - Added CSS `mix-blend-mode: screen` on the `<canvas>` element so the black JPEG background becomes 100% transparent while preserving all metallic highlights, reflections, and glow.
+  - Set container and sticky stage backgrounds to `transparent` to reveal the global `MoltenMetal` WebGL shader background seamlessly.
+- Implemented seamless scroll choreography between Community and Experience sections:
+  - Choreographed the Community card scroll exit in [src/components/CommunitySection.jsx](file:///d:/Luniq%20Website/src/components/CommunitySection.jsx) with continuous upward float (`y: -90px`), soft blur, and fade out.
+  - Implemented seamless stage entrance interpolation (`opacity`, `y`, `filter`) in [src/components/ScrollVideoSection.jsx](file:///d:/Luniq%20Website/src/components/ScrollVideoSection.jsx) as the user scrolls into the Experience sequence.
+  - Preserved 100% strict consistency for frame dimensions, coordinate mapping, and render scaling (`drawScaledImage`).
+- Verified production build (`npm run build`) completed with 0 errors.
+
+

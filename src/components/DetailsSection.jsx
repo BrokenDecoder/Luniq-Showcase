@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import BlurText from '../BlurText';
+import GlareCard from './GlareCard';
 import { details } from '../data/content';
 
 export default function DetailsSection() {
@@ -84,15 +85,16 @@ export default function DetailsSection() {
           {details.map(({ icon: Icon, title, copy }, i) => (
             <motion.div
               key={title}
-              className="detail-item glass-panel"
               whileHover={{ y: -6, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 260, damping: 20 }}
             >
-              <span className="detail-icon"><Icon size={20} strokeWidth={1.8} /></span>
-              <div className="detail-meta">
-                <strong>{title}</strong>
-                <p>{copy}</p>
-              </div>
+              <GlareCard className="detail-item glass-panel" radius={16}>
+                <span className="detail-icon"><Icon size={20} strokeWidth={1.8} /></span>
+                <div className="detail-meta">
+                  <strong>{title}</strong>
+                  <p>{copy}</p>
+                </div>
+              </GlareCard>
             </motion.div>
           ))}
         </div>

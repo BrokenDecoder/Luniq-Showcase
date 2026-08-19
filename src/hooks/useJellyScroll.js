@@ -63,7 +63,7 @@ export default function useJellyScroll() {
 
     // 3. 10% Magnetic Snapping on Scroll Pause
     const getSections = () => {
-      const sectionIds = ['top', 'showcase', 'showcase-stage', 'features', 'features-cards', 'details', 'download', 'community', 'reviews'];
+      const sectionIds = ['top', 'showcase', 'showcase-stage', 'features', 'features-cards', 'details', 'download', 'community', 'experience'];
       return sectionIds
         .map(id => document.getElementById(id))
         .filter(Boolean);

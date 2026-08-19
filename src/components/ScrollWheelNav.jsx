@@ -7,7 +7,8 @@ const NAV_ITEMS = [
   'Features',
   'Details',
   'Download',
-  'Community'
+  'Community',
+  'Experience'
 ];
 
 const TARGET_IDS = [
@@ -15,7 +16,8 @@ const TARGET_IDS = [
   'features',
   'details',
   'download',
-  'community'
+  'community',
+  'experience'
 ];
 
 export default function ScrollWheelNav() {
@@ -25,23 +27,23 @@ export default function ScrollWheelNav() {
   const isScrollingToRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
 
-  // Visibility: Active only between Showcase and Community
+  // Visibility: Active from Showcase through the Experience section
   useEffect(() => {
     const checkVisibility = () => {
       const showcaseEl = document.getElementById('showcase');
-      const reviewsEl = document.getElementById('reviews');
+      const footerEl = document.querySelector('.footer');
 
       if (showcaseEl) {
         const showcaseRect = showcaseEl.getBoundingClientRect();
         const pastHero = showcaseRect.top <= window.innerHeight * 0.45;
 
-        let inReviews = false;
-        if (reviewsEl) {
-          const reviewsRect = reviewsEl.getBoundingClientRect();
-          inReviews = reviewsRect.top <= window.innerHeight * 0.45;
+        let inFooter = false;
+        if (footerEl) {
+          const footerRect = footerEl.getBoundingClientRect();
+          inFooter = footerRect.top <= window.innerHeight * 0.7;
         }
 
-        setIsVisible(pastHero && !inReviews);
+        setIsVisible(pastHero && !inFooter);
       }
     };
 

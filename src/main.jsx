@@ -10,8 +10,7 @@ import FeaturesSection from './components/FeaturesSection';
 import DetailsSection from './components/DetailsSection';
 import DownloadSection from './components/DownloadSection';
 import CommunitySection from './components/CommunitySection';
-import ReviewsSection from './components/ReviewsSection';
-import Footer from './components/Footer';
+import ScrollVideoSection from './components/ScrollVideoSection';
 
 import useJellyScroll from './hooks/useJellyScroll';
 
@@ -36,10 +35,8 @@ function App() {
         <DetailsSection />
         <DownloadSection />
         <CommunitySection />
-        <ReviewsSection />
+        <ScrollVideoSection />
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GitFork as Github, Menu, X } from 'lucide-react';
+import SpecularButton from './SpecularButton';
 import { LINKS, ease } from '../data/content';
 
 export default function Navbar() {
@@ -22,9 +23,17 @@ export default function Navbar() {
         </nav>
         <div className="nav-actions">
           <span className="version-pill">v1.0.6</span>
-          <a className="ghost-button" href={LINKS.github} target="_blank" rel="noreferrer">
-            <Github size={15} /> <span>GitHub</span>
-          </a>
+          <SpecularButton
+            href={LINKS.github}
+            target="_blank"
+            rel="noreferrer"
+            variant="quiet"
+            size="sm"
+            radius={12}
+            baseColor="#606775"
+          >
+            <Github size={14} /> <span>GitHub</span>
+          </SpecularButton>
           <button
             className="icon-button menu-toggle"
             onClick={() => setMenuOpen(!menuOpen)}

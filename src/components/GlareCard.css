@@ -1,0 +1,75 @@
+.glare-card {
+  --glare-x: 50%;
+  --glare-y: 50%;
+  --glare-angle: 0deg;
+  --glare-opacity: 0;
+
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(14, 18, 28, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  user-select: none;
+}
+
+.glare-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 0 32px rgba(235, 90, 55, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* Directional Specular Border Glint that points toward the cursor */
+.glare-card__rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--glare-opacity);
+  transition: opacity 0.3s ease;
+  padding: 1px;
+  background: radial-gradient(
+    400px circle at var(--glare-x) var(--glare-y),
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(235, 90, 55, 0.4) 30%,
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Dynamic Radial Surface Glare */
+.glare-card__surface {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  opacity: var(--glare-opacity);
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    500px circle at var(--glare-x) var(--glare-y),
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(235, 90, 55, 0.04) 35%,
+    transparent 65%
+  );
+}
+
+/* Card Content Layer */
+.glare-card__content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
